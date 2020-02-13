@@ -1,11 +1,7 @@
 import random
 
 def start():
-    print("Mastermind game")
-#Kies_soort_spel= input("Kies soort spel: ")# moet nog vinden hoe je het met keeuzes gaat meken, geldt voor alle inputs
-#Kies_aantaal_kleuren= int(input("Hoeveel kleuren mogen er in zitten?: "))
-
-#Welke_kleuren= input("Welke kleuren mogen er in komen?: ")#optie voor easy spel
+    print("---Mastermind game---")
     code_speler = []
     while len(code_speler) < 4:
         code_speler.append(input("Guess de kleuren : "))
@@ -14,9 +10,9 @@ def start():
     feedback(code, code_speler, count_aantal_pogingen)
 
 def secret_code():
-    kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart"]
+    kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart", "paars"]
     code= random.sample(kleuren, 4 )
-    print(code)
+    #print(code)
     return code
 
 def  vergelijking (code, code_speler):
@@ -26,19 +22,19 @@ def  vergelijking (code, code_speler):
         while(code_speler!=code):
             klopt_kleuren = 0
             for j in range(0, len(code_speler)):
-                print(code_speler[j])
+                #print(code_speler[j])
                 if (code_speler[j] in code):
                     klopt_kleuren+=1
                 else:
                     continue
-            print(klopt_kleuren)
+           # print(klopt_kleuren)
             return klopt_kleuren
 
 def feedback(code, code_speler, count_aantaal_pogingen):
     count_aantaal_pogingen += 1
     klopt_kleuren = vergelijking(code, code_speler)
     if (klopt_kleuren < 4) and (klopt_kleuren != 0):
-        print("Het klopt niet helemaal, maar je hebt "+ str(klopt_kleuren)+ "kleuren op een verkerde positie goed geraden")
+        print("Het klopt niet, maar je hebt "+ str(klopt_kleuren)+ " kleuren op een verkerde positie goed geraden!")
         code_speler = []
         while len(code_speler) < 4:
             code_speler.append(input("Guess de kleuren : "))
