@@ -1,20 +1,29 @@
 import random
-
+def keuze_m():
+     keuze= int(input("Kies een van de opties:"'\n' 
+          "1.spelen tegen de computer: "'\n'
+          "2.computer tegen jou: ""\n"
+          "Ik kies: "))
+     if keuze==1:
+        return start()
+     if keuze==2:
+        return computer_guess()
 def start():
     print("---Mastermind game---")
+    print("Kies uit de volgende kleuren: wit, rood, groen, geel, blauw, zwart en paars. ")
     code_speler = []
     while len(code_speler) < 4:
-           code_speler.append(input("Guess de kleuren : "))
+        code_speler.append(input("Guess de kleuren : "))
     #code_speler = ["blauw", "zwart", "groen","rood"]
     code = secret_code()
     count_aantal_pogingen = 0
     feedback(code, code_speler, count_aantal_pogingen)
 
 def secret_code():
-    kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart", "paars"]
-    code= random.sample(kleuren, 4 )
-
-    #code = ["blauw", "zwart", "groen","rood"]
+    #kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart", "paars"]
+    #code= random.sample(kleuren, 4 )
+    #print(code)
+    code = ["blauw", "zwart", "groen","rood"]
     return code
 
 def  vergelijking (code, code_speler):
@@ -30,7 +39,6 @@ def  vergelijking (code, code_speler):
             code_list=[]
             #wit
             for j in range(0, len(code)):
-
                 if (code[j] == code_speler[j]):
                     klopt_positie+=1
                 else:
@@ -40,7 +48,8 @@ def  vergelijking (code, code_speler):
             for j in range(0, len(code_list)):
                 if (code_list[j] in code_speler_list):
                      klopt_kleuren+=1
-
+                     print(klopt_positie)
+                     print(klopt_kleuren)
                 else:
                      continue
             return klopt_kleuren, klopt_positie
@@ -50,7 +59,7 @@ def feedback(code, code_speler, count_aantal_pogingen):
     klopt_kleuren, klopt_positie = vergelijking(code, code_speler)
     if klopt_positie == 4:
          print("Goed gedaan! Je bent een Mastermind!")
-         print("Je hebt" + str(count_aantal_pogingen) + "pogingen in totaal gehad.")
+         print("Je hebt" + str(count_aantal_pogingen) + "  pogingen in totaal.")
     else:
         print("Het aantal goede posities is {}, het aantal goede kleuren op de verkeerde positie is {}".
               format(klopt_positie, klopt_kleuren))
@@ -59,8 +68,7 @@ def feedback(code, code_speler, count_aantal_pogingen):
             code_speler.append(input("Guess de kleuren : "))
         feedback(code, code_speler, count_aantal_pogingen)
 
-start()
+keuze_m()
 
-#def computer_guess():
-
-    #guess= random.sample(kleuren,4)
+def computer_guess():
+    secret_code= input("Geef een secret code: ")
