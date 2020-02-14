@@ -3,23 +3,23 @@ import random
 def start():
     print("---Mastermind game---")
     code_speler = []
-    #while len(code_speler) < 4:
-           #code_speler.append(input("Guess de kleuren : "))
-    code_speler = ["blauw", "zwart", "groen","rood"]
+    while len(code_speler) < 4:
+           code_speler.append(input("Guess de kleuren : "))
+    #code_speler = ["blauw", "zwart", "groen","rood"]
     code = secret_code()
     count_aantal_pogingen = 0
     feedback(code, code_speler, count_aantal_pogingen)
 
 def secret_code():
-    # kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart", "paars"]
-    # code= random.sample(kleuren, 4 )
-    # print(code)
-    code = ["blauw", "zwart", "groen","rood"]
+    kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart", "paars"]
+    code= random.sample(kleuren, 4 )
+
+    #code = ["blauw", "zwart", "groen","rood"]
     return code
 
 def  vergelijking (code, code_speler):
     if (code_speler==code):
-        print("Great! Je hebt alle kleuren goed geraden.You're a Mastermind!")
+        return 0,4
     else:
         while(code_speler!=code):
             #klopt kleuren= wit
@@ -57,7 +57,7 @@ def feedback(code, code_speler, count_aantal_pogingen):
         code_speler = []
         while len(code_speler) < 4:
             code_speler.append(input("Guess de kleuren : "))
-        vergelijking(code, code_speler)
+        feedback(code, code_speler, count_aantal_pogingen)
 
 start()
 
