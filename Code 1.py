@@ -5,9 +5,16 @@ def keuze_m():
           "2.computer tegen jou: ""\n"
           "Ik kies: "))
      if keuze==1:
+        print('\r')
         return start()
      if keuze==2:
-        return computer_guess()
+         print('\r')
+         return computer_guess()
+     else:
+         print("Voer een geldige keuze in !")
+         print('\r')
+         return keuze_m()
+
 def start():
     print("---Mastermind game---")
     print("Kies uit de volgende kleuren: wit, rood, groen, geel, blauw, zwart en paars. ")
@@ -44,12 +51,11 @@ def  vergelijking (code, code_speler):
                 else:
                     code_speler_list.append(code_speler[j])
                     code_list.append(code[j])
-             #zwart
+            #zwart
             for j in range(0, len(code_list)):
                 if (code_list[j] in code_speler_list):
                      klopt_kleuren+=1
-                     print(klopt_positie)
-                     print(klopt_kleuren)
+
                 else:
                      continue
             return klopt_kleuren, klopt_positie
@@ -71,5 +77,14 @@ def feedback(code, code_speler, count_aantal_pogingen):
 keuze_m()
 
 def computer_guess():
-    secret_code= input("Geef een secret code: ")
-
+   print("Geef me 4 kleuren om te raden," '\n'
+         "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw, zwart en paars. ")
+   secret_code= []
+   while len(secret_code) < 4:
+       secret_code.append(input("Guess de kleuren : "))
+   print("Please type: 1 als mijn  gok fout is"
+         "           : 2 als mijn gok goed is  ")
+   humanFeedback= input("Dus had ik het goed?")
+   if 1< humanFeedback >2 :
+       print("Voer ")
+   feedback(code, code_speler, count_aantal_pogingen)
