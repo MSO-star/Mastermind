@@ -72,3 +72,4 @@ keuze_m()
 
 def computer_guess():
     secret_code= input("Geef een secret code: ")
+
