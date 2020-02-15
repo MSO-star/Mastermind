@@ -88,9 +88,10 @@ def feedback(code, code_speler, count_aantal_pogingen):
 def computer_guess():
     print("Geef me 4 kleuren om te raden," '\n'
           "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw, zwart en paars. ")
+    print('\r')
     secret_code = []
     while len(secret_code) < 4:
-        code_input = (input("Geef me de kleuren : ")).lower()
+        code_input = (input("Geef me de kleuren: ")).lower()
         if code_input == "stop":
             print("Het spel is gestopt.")
             exit()
