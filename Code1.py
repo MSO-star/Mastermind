@@ -1,5 +1,6 @@
 import random
-import
+import Code2 as fk
+
 def keuze_m():
      keuze= int(input("Kies een van de opties:"'\n' 
           "1.spelen tegen de computer: "'\n'
@@ -85,16 +86,3 @@ def feedback(code, code_speler, count_aantal_pogingen):
 
 keuze_m()
 
-def computer_guess():
-   print("Geef me 4 kleuren om te raden," '\n'
-         "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw, zwart en paars. ")
-   secret_code= []
-   while len(secret_code) < 4:
-       secret_code.append(input("Guess de kleuren : "))
-   print("Please type: 1 als mijn  gok fout is"
-         "           : 2 als mijn gok goed is  ")
-   humanFeedback= input("Dus had ik het goed?")
-   if 1< humanFeedback >2 :
-       print("Voer een geldig keuze in:")
-
-#feedback(code, code_speler, count_aantal_pogingen)
