@@ -1,4 +1,5 @@
 import random
+import Code2
 def keuze_m():
      keuze= int(input("Kies een van de opties:"'\n' 
           "1.spelen tegen de computer: "'\n'
