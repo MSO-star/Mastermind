@@ -10,4 +10,3 @@ n2_random= random.sample(["wit", "rood","groen", "geel", "blauw", "zwart"],1)
 n3_random= random.sample(["wit", "rood","groen", "geel", "blauw", "zwart"],1)
 n4_random= random.sample(["wit", "rood","groen", "geel", "blauw", "zwart"],1)
 
-for i in

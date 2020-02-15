@@ -20,10 +20,14 @@ def start():
     print("Kies uit de volgende kleuren: wit, rood, groen, geel, blauw, zwart en paars. ")
     code_speler = []
     while len(code_speler) < 4:
-        code_speler.append(input("Guess de kleuren : "))
+        code_input=(input("Guess de kleuren : ")).lower()
+        if code_input=="stop":
+            exit()
+        else:
+            code_speler.append()
     #code_speler = ["blauw", "zwart", "groen","rood"]
     code = secret_code()
-    count_aantal_pogingen = 0
+    count_aantal_pogingen =  0
     feedback(code, code_speler, count_aantal_pogingen)
 
 def secret_code():
@@ -65,13 +69,17 @@ def feedback(code, code_speler, count_aantal_pogingen):
     klopt_kleuren, klopt_positie = vergelijking(code, code_speler)
     if klopt_positie == 4:
          print("Goed gedaan! Je bent een Mastermind!")
-         print("Je hebt" + str(count_aantal_pogingen) + "  pogingen in totaal.")
+         print("Je hebt {} pogingen in totaal.".format(count_aantal_pogingen))
     else:
         print("Het aantal goede posities is {}, het aantal goede kleuren op de verkeerde positie is {}".
               format(klopt_positie, klopt_kleuren))
         code_speler = []
         while len(code_speler) < 4:
-            code_speler.append(input("Guess de kleuren : "))
+            code_input = (input("Guess de kleuren : ")).lower()
+            if code_input == "stop":
+                exit()
+            else:
+                code_speler.append(code_input)
         feedback(code, code_speler, count_aantal_pogingen)
 
 keuze_m()
@@ -86,5 +94,6 @@ def computer_guess():
          "           : 2 als mijn gok goed is  ")
    humanFeedback= input("Dus had ik het goed?")
    if 1< humanFeedback >2 :
-       print("Voer ")
-   feedback(code, code_speler, count_aantal_pogingen)
+       print("Voer een geldig keuze in:")
+
+#feedback(code, code_speler, count_aantal_pogingen)
