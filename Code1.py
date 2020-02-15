@@ -1,5 +1,4 @@
 import random
-import Code2 as fk
 
 def keuze_m():
      keuze= int(input("Kies een van de opties:"'\n' 
@@ -24,9 +23,10 @@ def start():
     while len(code_speler) < 4:
         code_input=(input("Guess de kleuren : ")).lower()
         if code_input=="stop":
+            print("Het spel is gestopt.")
             exit()
         else:
-            code_speler.append()
+            code_speler.append(code_input)
     #code_speler = ["blauw", "zwart", "groen","rood"]
     code = secret_code()
     count_aantal_pogingen =  0
@@ -79,10 +79,46 @@ def feedback(code, code_speler, count_aantal_pogingen):
         while len(code_speler) < 4:
             code_input = (input("Guess de kleuren : ")).lower()
             if code_input == "stop":
+                print("Het spel is gestopt.")
                 exit()
             else:
                 code_speler.append(code_input)
         feedback(code, code_speler, count_aantal_pogingen)
+
+def computer_guess():
+    print("Geef me 4 kleuren om te raden," '\n'
+          "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw, zwart en paars. ")
+    secret_code = []
+    while len(secret_code) < 4:
+        code_input = (input("Geef me de kleuren : ")).lower()
+        if code_input == "stop":
+            print("Het spel is gestopt.")
+            exit()
+        else:
+            secret_code.append(code_input)
+        return secret_code
+    print("Please type: 1 als mijn gok fout is" '\n'
+          "           : 2 als mijn gok goed is")
+
+    humanFeedback = input("Dus had ik het goed?")
+    if 1 < humanFeedback > 2:
+        print("Voer een geldig keuze in:")
+
+def mogelijk_gok():
+    kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart", "paars"]
+    alle_mogelijkheden= []
+    for i in kleuren:
+        for k in kleuren:
+            for c in kleuren:
+                for g in kleuren:
+                    alle_mogelijkheden.append([i,k,c,g])
+    print(alle_mogelijkheden)
+    return alle_mogelijkheden
+
+    keuze_m()
+
+
+
 
 keuze_m()
 

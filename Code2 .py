@@ -5,10 +5,16 @@ def computer_guess():
          "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw, zwart en paars. ")
    secret_code= []
    while len(secret_code) < 4:
-       secret_code.append(input("Guess de kleuren : "))
-   print("Please type: 1 als mijn  gok fout is"
-         "           : 2 als mijn gok goed is  ")
+       code_input = (input("Geef me de kleuren : ")).lower()
+       if code_input == "stop":
+           exit()
+       else:
+           secret_code.append(code_input)
+       print(secret_code)
+   print("Please type: 1 als mijn gok fout is"'\n'
+         "           : 2 als mijn gok goed is")
    humanFeedback= input("Dus had ik het goed?")
-   if 1< humanFeedback >2 :
-       print("Voer een geldig keuze in:")
-fl.feedback()
+
+   fl.keuze_m()
+   fl.vergelijking( )
+fl.keuze_m()
