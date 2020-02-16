@@ -48,7 +48,7 @@ def  vergelijking (secret_code_input, gok1):
 
             return klopt_kleuren, klopt_positie
 def vergelijk_codes(gok1, secret_code_input):
-    gok1= fl.Random_secret_code()
+    gok1= fl.random_secret_code()
     secret_code_input= computer_guess()
     return gok1
     return secret_code_input
