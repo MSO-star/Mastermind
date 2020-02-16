@@ -123,6 +123,7 @@ def verwijder_onmogelijk_gok(alle_mogelijk_gok_combinaties, code_speler , klopt_
    print(definitief_lijst)
    return definitief_lijst
 
+
 def gok_twee(alle_mogelijk_gok_combinaties):
 
     for alle_gokken in alle_mogelijk_gok_combinaties:
