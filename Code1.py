@@ -124,8 +124,18 @@ def verwijder_onmogelijk_gok(alle_mogelijk_gok_combinaties, code_speler , klopt_
    return definitief_lijst
 
 def gok_twee(alle_mogelijk_gok_combinaties):
-    print("")
-    best_gok= math.inf
+
+    for alle_gokken in alle_mogelijk_gok_combinaties:
+        code_speler= alle_gokken
+        lijst_te_rekenen= []
+        alle_feedback= [ (0, 0), (0, 1), (0, 2), (0, 3), (0, 4),(1, 0), (1, 1), (1, 2), (1, 3),(2, 0), (2, 1), (2, 2),(3, 0),(3,1), (4, 0)]
+        for i in alle_feedback:
+            tellenlist=[]
+            for alle_gokken in alle_mogelijk_gok_combinaties:
+                if vergelijking(code_speler,alle_gokken)!= i:
+                    tellenlist.append(alle_gokken)
+            te_rekenen= len(alle_mogelijk_gok_combinaties)- len(tellenlist)
+            lijst_te_rekenen.append(te_rekenen)
 
 
 
