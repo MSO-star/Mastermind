@@ -9,7 +9,7 @@ def keuze_m():
      if keuze==1:
         print('\r')
         return start()
-     if keuze==2:
+     elif keuze==2:
          print('\r')
          return computer_guess()
      else:
@@ -20,18 +20,18 @@ def keuze_m():
 def start():
     print("---Mastermind game---")
     print("Kies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. ")
-    code_speler = []
-    while len(code_speler) < 4:
+    gok = []
+    while len(gok) < 4:
         code_input=(input("Guess de kleuren: ")).lower()
         if code_input=="stop":
             print("Het spel is gestopt.")
-            exit()
+            return gok
         else:
-            code_speler.append(code_input)
-    #code_speler = ["blauw", "zwart", "groen","rood"]
+            gok.append(code_input)
+    #gok = ["blauw", "zwart", "groen","rood"]
     secret_code = random_secret_code()
     count_aantal_pogingen =  0
-    feedback(secret_code, code_speler, count_aantal_pogingen)
+    feedback(secret_code, gok, count_aantal_pogingen)
 
 def random_secret_code():
     #kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart"]
@@ -40,32 +40,32 @@ def random_secret_code():
     secret_code = ["blauw", "zwart", "groen","rood"]
     return secret_code
 
-def  vergelijking (secret_code, code_speler):
-    if (code_speler==secret_code):
+def  vergelijking (gok, secret_code):
+    if (gok==secret_code):
         return 0,4
     else:
-        while(code_speler != secret_code):
+        while(gok != secret_code):
             klopt_kleuren = 0 #wit
             klopt_positie= 0 #rood/ zwart 
             code_speler_list=[]
             code_list=[]
             for j in range(0, len(secret_code)): #zwart
-                if (secret_code[j] == code_speler[j]):
+                if (secret_code[j] == gok[j]):
                     klopt_positie+=1
                 else:
-                    code_speler_list.append(code_speler[j])
+                    code_speler_list.append(gok[j])
                     code_list.append(secret_code[j])
             for j in range(0, len(code_list)): #wit
                 if (code_list[j] in code_speler_list):
                      klopt_kleuren+=1
                 else:
                      continue
-            return klopt_kleuren, klopt_positie
+            return klopt_positie, klopt_kleuren
 
-def feedback(secret_code, code_speler, count_aantal_pogingen):
+def feedback(secret_code, gok, count_aantal_pogingen):
     count_aantal_pogingen += 1
 
-    klopt_kleuren, klopt_positie = vergelijking(secret_code, code_speler)
+    klopt_kleuren, klopt_positie = vergelijking(secret_code, gok)
     if count_aantal_pogingen==10:
         print("Je hebt de maximale aantal pogingen bereikt. Probeert het opnieuw")
         exit()
@@ -77,15 +77,15 @@ def feedback(secret_code, code_speler, count_aantal_pogingen):
         print("Het aantal zwart/rood pin(s) is {} \nHet aantal wit pin(s) is {}".
               format(klopt_positie, klopt_kleuren))
         print('\r')
-        code_speler = []
-        while len(code_speler) < 4:
+        gok = []
+        while len(gok) < 4:
             code_input = (input("Guess de kleuren : ")).lower()
             if code_input == "stop":
                 print("Het spel is gestopt.")
-                exit()
+                return gok
             else:
-                code_speler.append(code_input)
-        feedback(secret_code, code_speler, count_aantal_pogingen)
+                gok.append(code_input)
+        feedback(secret_code, gok, count_aantal_pogingen)
 
 def computer_guess():
     print("Maak de secret code," '\n'
@@ -96,7 +96,7 @@ def computer_guess():
         code_input = (input("Geef me de kleuren: ")).lower()
         if code_input == "stop":
             print("Het spel is gestopt.")
-            exit()
+            return secret_code
         else:
             secret_code.append(code_input)
 
@@ -111,34 +111,37 @@ def alle_mogelijk_gok():
             for c in kleuren:
                 for g in kleuren:
                     alle_mogelijkheden.append([i , k ,c , g ])
-
+    print(len(alle_mogelijkheden))
     return alle_mogelijkheden
 
-def verwijder_onmogelijk_gok(alle_mogelijk_gok_combinaties, code_speler , klopt_positie ,klopt_kleuren):
-   extra = alle_mogelijk_gok_combinaties.remove(code_speler)
+def verwijder_onmogelijk_gok(alle_mogelijk_gok_combinaties, gok , klopt_positie ,klopt_kleuren):
+   alle_mogelijk_gok_combinaties.remove(gok)
    definitief_lijst=[]
    for i in alle_mogelijk_gok_combinaties:
-       if vergelijking(code_speler, i)== (klopt_positie, klopt_kleuren):
+       if vergelijking(gok, i)== (klopt_positie, klopt_kleuren):
            definitief_lijst.append(i)
    print(definitief_lijst)
    return definitief_lijst
 
 
 def gok_twee(alle_mogelijk_gok_combinaties):
+    alle_feedback = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 0), (1, 1), (1, 2), (1, 3), (2, 0), (2, 1), (2, 2),(3, 0), (3, 1), (4, 0)]
 
-    for alle_gokken in alle_mogelijk_gok_combinaties:
-        code_speler= alle_gokken
+    for gok_in_mogelijkheden in alle_mogelijk_gok_combinaties:
+        gok= gok_in_mogelijkheden
         lijst_te_rekenen= []
-        alle_feedback= [ (0, 0), (0, 1), (0, 2), (0, 3), (0, 4),(1, 0), (1, 1), (1, 2), (1, 3),(2, 0), (2, 1), (2, 2),(3, 0),(3,1), (4, 0)]
         for i in alle_feedback:
-            tellenlist=[]
-            for alle_gokken in alle_mogelijk_gok_combinaties:
-                if vergelijking(code_speler,alle_gokken)!= i:
-                    tellenlist.append(alle_gokken)
-            te_rekenen= len(alle_mogelijk_gok_combinaties)- len(tellenlist)
+            tellenlist = []
+            for gok_in_mogelijkheden in alle_mogelijk_gok_combinaties:
+                if vergelijking(gok, gok_in_mogelijkheden) != i:
+                    tellenlist.append(gok_in_mogelijkheden)
+            te_rekenen = len(alle_mogelijk_gok_combinaties) - len(tellenlist)
             lijst_te_rekenen.append(te_rekenen)
 
 
-
+alle_mogelijk_gok()
 
 keuze_m()
+
+
+kleuren_lijst= [ ]
