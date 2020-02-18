@@ -17,20 +17,27 @@ def keuze_m():
 
 
 def input_vragen():#voor player guess
+    kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
     gok = []
     while len(gok) < 4:
         code_input=(input("Guess de kleuren: ")).lower()
-        if code_input=="stop":
+        if code_input not in kleuren:
+            print("Voer een geldig kleur in!")
+        elif code_input=="stop":
             print("Het spel is gestopt.")
-            return gok
+
         else:
             gok.append(code_input)
+    return gok
 
 def player_secretcode_pc(): # voor computer guess
+    kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
     secret_code=[]
     while len(secret_code) < 4:
         code_input = (input("Geef me de kleuren: ")).lower()
-        if code_input == "stop":
+        if code_input not in kleuren:
+            print("voer een geldig kleur in!")
+        elif code_input == "stop":
             print("Het spel is gestopt.")
             return secret_code
         else:
@@ -64,14 +71,15 @@ def alle_mogelijk_gok():
     return alle_mogelijkheden
 
 def verwijder_onmogelijk_gok():
+    print(' hiero')
     tell_antaal_pogingen_pc= 0
     alle_mogelijkheden= alle_mogelijk_gok()
     secret_code= computer_guess_m()
     return_lijst= []
     while len(alle_mogelijkheden) > 0:
+        print(' daar')
         gok = alle_mogelijkheden[0]
         print("De computer heeft", gok, "als gok", tell_antaal_pogingen_pc)
-
         for items in alle_mogelijkheden:
             if vergelijking(gok, items) == vergelijking(gok, secret_code):
                 return_lijst.append(items)
