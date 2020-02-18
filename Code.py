@@ -9,7 +9,7 @@ def keuze_m():
         return start()
     elif keuze == 2:
         print('\r')
-        return computer_guess_m()
+        function()
     else:
         print("Voer een geldige keuze in !'\r")
         return keuze_m()
@@ -22,8 +22,9 @@ def input_vragen():#voor player guess
         code_input = (input("Guess de kleuren: ")).lower()
         if code_input not in kleuren:
             print("Voer een geldig kleur in!")
-        elif code_input == "stop":
+        if code_input == "stop":
             print("Het spel is gestopt.")
+            exit()
 
         else:
             gok.append(code_input)
@@ -36,9 +37,10 @@ def player_secretcode_pc(): # voor computer guess
         code_input = (input("Geef me de kleuren: ")).lower()
         if code_input not in kleuren:
             print("voer een geldig kleur in!")
+            return secret_code
         elif code_input == "stop":
             print("Het spel is gestopt.")
-            return secret_code
+            exit()
         else:
             secret_code.append(code_input)
     print("De gekozen secret code is: ", secret_code)
@@ -70,6 +72,7 @@ def alle_mogelijk_gok():
                     alle_mogelijkheden.append([i, k, c, g])
                     alle_mogelijkheden.sort()
     return alle_mogelijkheden
+
 def function():
     #secret_code, alle_mogelijkheden
     gok1 = ['wit', 'wit', 'rood','groen']
@@ -81,7 +84,7 @@ def function():
     for item in alle_mogelijkheden:
         if vergelijking(gok1, item)== feedback1:
             lijst_return.append(item)
-        return lijst_return
+    return lijst_return
 
 
 def verwijder_onmogelijk_gok(alle_mogelijkheden, secret_code):
@@ -120,9 +123,12 @@ def vergelijking(gok, secret_code):
                 else:
                     code_speler_list.append(gok[j])
                     code_list.append(secret_code[j])
-            for j in range(0, len(code_list)): #wit
-                if code_list[j] in code_speler_list:
+            for j in code_speler_list:#wit
+                for i in code_list:
+                    if j == i:
                      klopt_kleuren += 1
+                     code_list.remove(i)
+                     break
                 else:
                      continue
             return klopt_positie, klopt_kleuren
@@ -151,4 +157,4 @@ def feedback(secret_code, gok, count_aantal_pogingen):
 
 
 keuze_m()
-function()
+
