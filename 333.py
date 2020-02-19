@@ -20,7 +20,7 @@ def keuze_m():
             print("Voer een geldige keuze in !\r")
 
 
-def input_vragen():  # voor player guess
+def input_vragen():  # for player guess
     kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
     gok = []
     while len(gok) < 4:
@@ -33,6 +33,63 @@ def input_vragen():  # voor player guess
         else:
             gok.append(code_input)
     return gok
+
+
+def start():
+    print(" \nJe gaat de code raden, dus...\nKies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. ")
+    gok = input_vragen()
+    secret_code = random_secret_code()
+    klopt_positie, klopt_kleuren = vergelijking(gok, secret_code)
+    feedback(klopt_positie, klopt_kleuren)
+
+
+def random_secret_code():
+    kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
+    #secret_code_random = ["wit",'rood', 'groen', 'groen']
+    secret_code_random = random.sample(kleuren, 4)
+    return secret_code_random
+
+
+def vergelijking(gok, secret_code):  # Bron: Adam (de twee lijsten methode)
+    if gok == secret_code:
+        return 4, 0
+    else:
+        while gok != secret_code:
+            klopt_kleuren = 0  # wit
+            klopt_positie = 0  # zwart
+            code_speler_list = []
+            code_list = []
+            for kleur_index in range(0, 4):  # zwart
+                if gok[kleur_index] == secret_code[kleur_index]:
+                    klopt_positie += 1
+                else:
+                    code_speler_list.append(gok[kleur_index])
+                    code_list.append(secret_code[kleur_index])
+            for items in code_speler_list:  # wit
+                for items2 in code_list:
+                    if items == items2:
+                        klopt_kleuren += 1
+                        code_list.remove(items2)
+                        break
+                else:
+                    continue
+            return klopt_positie, klopt_kleuren
+
+
+def feedback(klopt_positie, klopt_kleuren):
+    count_aantal_pogingen = 1
+    while klopt_positie != 10:
+        if count_aantal_pogingen == 10:
+            print("Je hebt de maximale aantal pogingen bereikt. Probeert het opnieuw")
+            exit()
+        elif klopt_positie == 4:
+            print("Goed gedaan! Je bent een Mastermind!")
+            print("Je hebt het binnen {} pogingen in gedaan.".format(count_aantal_pogingen))
+        else:
+            print("\rHet aantal zwart pin(s) is {} \nHet aantal wit pin(s) is {}\r".format(klopt_positie, klopt_kleuren))
+            input_vragen()
+        count_aantal_pogingen += 1
+        print(count_aantal_pogingen)
 
 
 def player_secretcode_pc():  # voor computer guess
@@ -49,14 +106,6 @@ def player_secretcode_pc():  # voor computer guess
             secret_code.append(code_input)
     print("De gekozen secret code is: {} ".format(secret_code))
     return secret_code
-
-
-def start():
-    print(" \nJe gaat de code raden, dus...\nKies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. ")
-    gok = input_vragen()
-    secret_code = random_secret_code()
-    klopt_positie, klopt_kleuren = vergelijking(gok, secret_code)
-    feedback(klopt_positie, klopt_kleuren)
 
 
 def computer_guess_m():
@@ -112,91 +161,5 @@ def algoritme_makkelijk(secret_code, alle_mogelijkheden):
             alle_mogelijkheden.remove(gok)
             teller += 1
 
-
-def eigen_algoritme():
-    secret_code = computer_guess_m()
-    alle_mogelijkheden = alle_mogelijk_gok()
-    teller = 0
-    mogelijkheden_2 = []
-
-    while True:
-        gok1 = ['wit', 'wit', 'rood', 'groen']
-        gok2 = ["wit", 'rood', 'groen', 'geel']
-        if secret_code == gok1:
-            print(gok1)
-            print("De computer heeft je secret code binnen 1 stap geraden!")
-            break
-        elif secret_code == gok2:
-            print(gok2)
-            print("De computer heeft je secret code binnen 2 stappen geraden !")
-            break
-        else:
-            a = vergelijking(gok1, secret_code)
-            b = vergelijking(gok2, secret_code)
-            if str(a) == str(b) or str(a) > str(b):
-                for item in alle_mogelijkheden:
-                    c = vergelijking(gok1, item)
-                    if a == c:
-                        mogelijkheden_2.append(item)
-            elif str(b) < str(a):
-                for item in alle_mogelijkheden:
-                    d = vergelijking(gok2, item)
-                    if b == d:
-                        mogelijkheden_2.append(item)
-            else:
-                gok3 = mogelijkheden_2[0]
-                print(gok3)
-        alle_mogelijkheden = mogelijkheden_2
-        teller += 1
-        print(len(mogelijkheden_2))
-
-
-def random_secret_code():
-    kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
-    #secret_code_random = ["wit",'rood', 'groen', 'groen']
-    secret_code_random = random.sample(kleuren, 4)
-    return secret_code_random
-
-
-def vergelijking(gok, secret_code):  # Bron: Adam (de twee lijsten methode)
-    if gok == secret_code:
-        return 4, 0
-    else:
-        while gok != secret_code:
-            klopt_kleuren = 0  # wit
-            klopt_positie = 0  # zwart
-            code_speler_list = []
-            code_list = []
-            for kleur_index in range(0, 4):  # zwart
-                if gok[kleur_index] == secret_code[kleur_index]:
-                    klopt_positie += 1
-                else:
-                    code_speler_list.append(gok[kleur_index])
-                    code_list.append(secret_code[kleur_index])
-            for items in code_speler_list:  # wit
-                for items2 in code_list:
-                    if items == items2:
-                        klopt_kleuren += 1
-                        code_list.remove(items2)
-                        break
-                else:
-                    continue
-            return klopt_positie, klopt_kleuren
-
-
-def feedback(klopt_positie, klopt_kleuren):
-    count_aantal_pogingen = 1
-    while klopt_positie != 10:
-        if count_aantal_pogingen == 10:
-            print("Je hebt de maximale aantal pogingen bereikt. Probeert het opnieuw")
-            exit()
-        elif klopt_positie == 4:
-            print("Goed gedaan! Je bent een Mastermind!")
-            print("Je hebt het binnen {} pogingen in gedaan.".format(count_aantal_pogingen))
-        else:
-            print("\rHet aantal zwart pin(s) is {} \nHet aantal wit pin(s) is {}\r".format(klopt_positie, klopt_kleuren))
-            input_vragen()
-        count_aantal_pogingen += 1
-        print(count_aantal_pogingen)
 
 keuze_m()
