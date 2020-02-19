@@ -17,9 +17,7 @@ def keuzemenu():
             algoritme_makkelijk(computer_guess(), alle_mogelijk_gok())
             break
         else:
-            CRED = '\033[91m'
-            CEND = '\033[0m'
-            print(CRED+ "Voer een geldige keuze in !\r"+ CEND)
+            print('\033[91m'+ "Voer een geldige keuze in !\r" + '\033[0m')
 
 
 def gok_vragen():  # for player guess
