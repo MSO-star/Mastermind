@@ -14,10 +14,10 @@ def keuze_m():
             break
         elif '2' in keuze:
             print('\r')
-            verwijdere_gokken()
+            verwijdere_gokken(computer_guess_m(), alle_mogelijk_gok())
             break
         elif '3' in keuze:
-            eigen_algoritme()
+            eesy(computer_guess_m(), alle_mogelijk_gok())
             break
         else:
             print("Voer een geldige keuze in !\r")
@@ -82,9 +82,7 @@ def alle_mogelijk_gok():
     return alle_mogelijkheden
 
 
-def verwijdere_gokken():                                         # simple stratgy  # Bron for the while loop : Iwan
-    secret_code = computer_guess_m()
-    alle_mogelijkheden = alle_mogelijk_gok()
+def verwijdere_gokken(secret_code, alle_mogelijkheden):                                         # simple stratgy  # Bron for the while loop : Iwan
     eerstekeer = 0
     while True:
         if eerstekeer == 0:
@@ -106,31 +104,60 @@ def verwijdere_gokken():                                         # simple stratg
         eerstekeer += 1
 
 
+def eesy(secret_code, alle_mogelijkheden):
+    teller= 0
+    while True:
+        gok = alle_mogelijkheden[0]
+        print(gok)
+        if gok == secret_code:
+            print("De algoritme heeft je secret code binnen {} keer geraden!".format(teller))
+            break
+        else:
+            lijst= []
+            feedback= vergelijking(gok, secret_code)
+            for items in alle_mogelijkheden:
+                if vergelijking(gok, items) == feedback:
+                    lijst.append(items)
+            alle_mogelijkheden = lijst
+            teller+=1
+
 def eigen_algoritme():
     secret_code = computer_guess_m()
     alle_mogelijkheden = alle_mogelijk_gok()
     teller= 0
     mogelijkheden_2= []
+
     while True:
         gok1 = ['wit', 'wit', 'rood', 'groen']
-        print(gok1)
         gok2= ["wit", 'rood', 'groen', 'geel']
         if secret_code == gok1:
+            print(gok1)
             print("De computer heeft je secret code binnen 1 stap geraden!")
             break
         elif secret_code == gok2:
             print(gok2)
             print("De computer heeft je secret code binnen 2 stappen geraden !")
+            break
         else:
-            feedback_gok2= vergelijking(gok2, secret_code)
-            for item in alle_mogelijkheden:
-                a = vergelijking(gok1, item)
-                if a == feedback_gok2:
-                    mogelijkheden_2.append(item)
-            alle_mogelijkheden = mogelijkheden_2
-            teller+=1
-            gok3= mogelijkheden_2[0]
-            print(gok3)
+            a = vergelijking(gok1, secret_code)
+            b = vergelijking(gok2, secret_code)
+            if str(a) == str(b) or str(a) > str(b):
+                for item in alle_mogelijkheden:
+                    c = vergelijking(gok1,item)
+                    if a == c :
+                        mogelijkheden_2.append(item)
+            elif str(b)<str(a):
+                for item in alle_mogelijkheden:
+                    d=vergelijking(gok2, item)
+                    if b == d :
+                         mogelijkheden_2.append(item)
+            else:
+                gok3 = mogelijkheden_2[0]
+                print(gok3)
+        alle_mogelijkheden = mogelijkheden_2
+        teller += 1
+        print(len(mogelijkheden_2))
+
 
 
 
