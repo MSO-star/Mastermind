@@ -17,7 +17,9 @@ def keuzemenu():
             algoritme_makkelijk(computer_guess(), alle_mogelijk_gok())
             break
         else:
-            print("Voer een geldige keuze in !\r")
+            CRED = '\033[91m'
+            CEND = '\033[0m'
+            print(CRED+ "Voer een geldige keuze in !\r"+ CEND)
 
 
 def gok_vragen():  # for player guess
@@ -26,10 +28,10 @@ def gok_vragen():  # for player guess
     while len(gok) < 4:
         code_input = (input("Guess de kleuren:")).lower()
         if code_input == "stop":
-            print("Het spel is gestopt.")
+            print('\33[100m'"Het spel is gestopt."+'\33[100m')
             exit()
         if code_input not in kleuren:
-            print("Voer een geldig kleur in!")
+            print('\033[91m' + "Voer een geldig kleur in!"+'\033[0m')
         else:
             gok.append(code_input)
     return gok
@@ -45,7 +47,6 @@ def start_randen_optie():
 
 def random_secret_code():
     kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
-    #secret_code_random = ["wit",'rood', 'groen', 'groen']
     secret_code_random = random.sample(kleuren, 4)
     return secret_code_random
 
@@ -80,10 +81,10 @@ def feedback_printen(klopt_positie, klopt_kleuren):
     count_aantal_pogingen = 1
     while klopt_positie != 10:
         if count_aantal_pogingen == 10:
-            print("Je hebt de maximale aantal pogingen bereikt. Probeert het opnieuw")
+            print('\033[91m' + "Je hebt de maximale aantal pogingen bereikt. Probeert het opnieuw" + '\033[91m')
             exit()
         elif klopt_positie == 4:
-            print("Goed gedaan! Je bent een Mastermind!")
+            print('\33[4m' + "Goed gedaan! Je bent een Mastermind!" + '\33[4m')
             print("Je hebt het binnen {} pogingen in gedaan.".format(count_aantal_pogingen))
         else:
             print("\rHet aantal zwart pin(s) is {} \nHet aantal wit pin(s) is {}\r".format(klopt_positie, klopt_kleuren))
@@ -93,17 +94,18 @@ def feedback_printen(klopt_positie, klopt_kleuren):
 
 
 def computer_guess():  # voor computer guess
+
     print("Maak de secret code,\n" 
-          "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. \r")
+          "Kies uit de volgende kleuren:  wit, rood, groen, geel, blauw en zwart.")
     kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
     secret_code = []
     while len(secret_code) < 4:
         code_input = (input("Geef me de kleuren:")).lower()
+        if code_input == "stop":
+            print('\33[100m'"Het spel is gestopt."+'\33[100m')
+            exit()
         if code_input not in kleuren:
-            print("voer een geldig kleur in!")
-        elif code_input == "stop":
-            print("Het spel is gestopt.")
-            return secret_code
+            print('\033[91m' + "Voer een geldig kleur in!"+'\033[0m')
         else:
             secret_code.append(code_input)
     print("De gekozen secret code is: {} ".format(secret_code))
@@ -158,7 +160,3 @@ def algoritme_makkelijk(secret_code, alle_mogelijkheden):
 
 
 keuzemenu()
-
-
-print()
-
