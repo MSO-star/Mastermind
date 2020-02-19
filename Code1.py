@@ -1,5 +1,4 @@
 import random
-import math
 
 def keuze_m():
      keuze= int(input("Kies een van de opties:"'\n' 
@@ -11,7 +10,7 @@ def keuze_m():
         return start()
      elif keuze==2:
          print('\r')
-         return computer_guess()
+         return computer_guess_m()
      else:
          print("Voer een geldige keuze in !")
          print('\r')
@@ -87,7 +86,7 @@ def feedback(secret_code, gok, count_aantal_pogingen):
                 gok.append(code_input)
         feedback(secret_code, gok, count_aantal_pogingen)
 
-def computer_guess():
+def computer_guess_m():
     print("Maak de secret code," '\n'
           "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. ")
     print('\r')
@@ -99,9 +98,10 @@ def computer_guess():
             return secret_code
         else:
             secret_code.append(code_input)
-
-    print("De gekozen secret code is " ,secret_code)
+    print("De gekozen secret code is: " ,secret_code)
     return secret_code
+
+
 
 def alle_mogelijk_gok():
     kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart"]
@@ -111,20 +111,13 @@ def alle_mogelijk_gok():
             for c in kleuren:
                 for g in kleuren:
                     alle_mogelijkheden.append([i , k ,c , g ])
-    print(len(alle_mogelijkheden))
+                    alle_mogelijkheden.sort()
     return alle_mogelijkheden
-
-def verwijder_onmogelijk_gok(alle_mogelijk_gok_combinaties, gok , klopt_positie ,klopt_kleuren):
-   alle_mogelijk_gok_combinaties.remove(gok)
-   definitief_lijst=[]
-   for i in alle_mogelijk_gok_combinaties:
-       if vergelijking(gok, i)== (klopt_positie, klopt_kleuren):
-           definitief_lijst.append(i)
-   print(definitief_lijst)
-   return definitief_lijst
 
 
 def gok_twee(alle_mogelijk_gok_combinaties):
+    alle_mogelijk_gok_combinaties= alle_mogelijk_gok()
+    gok = gok_twee()
     alle_feedback = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 0), (1, 1), (1, 2), (1, 3), (2, 0), (2, 1), (2, 2),(3, 0), (3, 1), (4, 0)]
 
     for gok_in_mogelijkheden in alle_mogelijk_gok_combinaties:
@@ -138,10 +131,23 @@ def gok_twee(alle_mogelijk_gok_combinaties):
             te_rekenen = len(alle_mogelijk_gok_combinaties) - len(tellenlist)
             lijst_te_rekenen.append(te_rekenen)
 
+def verwijder_onmogelijk_gok():
+    print(' hiero')
+    tell_antaal_pogingen_pc= 0
+    alle_mogelijkheden= alle_mogelijk_gok()
+    secret_code= computer_guess_m()
+    return_lijst= []
+    while len(alle_mogelijkheden) > 0:
+        print(' daar')
+        gok = alle_mogelijkheden[0]
+        print("De computer heeft", gok, "als gok", tell_antaal_pogingen_pc)
+        for items in alle_mogelijkheden:
+            if vergelijking(gok, items) == vergelijking(gok, secret_code):
+                return_lijst.append(items)
+        return return_lijst
 
-alle_mogelijk_gok()
+
 
 keuze_m()
 
-
-kleuren_lijst= [ ]
+verwijder_onmogelijk_gok()

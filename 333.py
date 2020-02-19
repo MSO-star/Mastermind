@@ -1,15 +1,15 @@
 import random
 def keuze_m():
-    keuze = input("Kies een van de opties:"'\n'
+    keuze = (input("Kies een van de opties:"'\n'
                       "1.spelen tegen de computer: "'\n'
                       "2.computer tegen jou: ""\n"
-                      "Ik kies: ")
+                      "Ik kies: "))
     if keuze == '1':
         print('\r')
-        return start()
+        start()
     elif keuze == '2':
         print('\r')
-        function()
+        verwijdere_gokken()
     else:
         print("Voer een geldige keuze in !'\r")
         return keuze_m()
@@ -22,9 +22,8 @@ def input_vragen():#voor player guess
         code_input = (input("Guess de kleuren: ")).lower()
         if code_input not in kleuren:
             print("Voer een geldig kleur in!")
-        if code_input == "stop":
+        elif code_input == "stop":
             print("Het spel is gestopt.")
-            exit()
 
         else:
             gok.append(code_input)
@@ -37,10 +36,9 @@ def player_secretcode_pc(): # voor computer guess
         code_input = (input("Geef me de kleuren: ")).lower()
         if code_input not in kleuren:
             print("voer een geldig kleur in!")
-            return secret_code
         elif code_input == "stop":
             print("Het spel is gestopt.")
-            exit()
+            return secret_code
         else:
             secret_code.append(code_input)
     print("De gekozen secret code is: ", secret_code)
@@ -73,34 +71,38 @@ def alle_mogelijk_gok():
                     alle_mogelijkheden.sort()
     return alle_mogelijkheden
 
-def function():
-    #secret_code, alle_mogelijkheden
-    gok1 = ['wit', 'wit', 'rood','groen']
-    lijst_return=[]
-    secret_code= computer_guess_m()
-    alle_mogelijkheden= alle_mogelijk_gok()
-    feedback1 = vergelijking(gok1,secret_code)
-    print(feedback1)
-    for item in alle_mogelijkheden:
-        if vergelijking(gok1, item)== feedback1:
-            lijst_return.append(item)
-    return lijst_return
+def verwijdere_gokken(): #simple stratgy
+    secret_code = computer_guess_m()
+    alle_mogelijkheden = alle_mogelijk_gok()
+    eerstekeer = 0
+    while True:
+        if eerstekeer == 0:
+            gok1 = ['wit', 'wit', 'rood', 'groen']
+            eerstekeer = 1
+        else:
+            gok1 = alle_mogelijkheden[0]
+        #secret_code, alle_mogelijkheden
+        lijst_return=[]
+        print(gok1)
+        if secret_code == gok1:
+            print("Gefeliciteerd!")
+            break
+        feedback1 = vergelijking(gok1, secret_code)
+        for item in alle_mogelijkheden:
+            a = vergelijking(gok1, item)
+            if a == feedback1:
+                lijst_return.append(item)
+        alle_mogelijkheden = lijst_return
+    print("De computer ")
+def eigen_algoritme():
+    secret_code = computer_guess_m()
+    alle_mogelijkheden = alle_mogelijk_gok()
+    teller= 0
 
-
-
-def verwijder_onmogelijk_gok(alle_mogelijkheden, secret_code):
-
-    gok1= ['wit', 'wit', 'rood','groen']  #volgens startgie an expected size is AAABC de beste 1e gok
-    return_lijst = []
-    #while len(alle_mogelijkheden) > 0:
-       # gok = alle_mogelijkheden[0]
-       # print("De computer heeft", gok, "als gok", tell_antaal_pogingen_pc)
-    for items in alle_mogelijkheden:
-        print("hi")
-        if vergelijking(secret_code, items) == vergelijking(secret_code, gok1):
-                return_lijst.append(items)
-        return return_lijst
-
+    while j != len(alle_mogelijkheden):
+        gok = alle_mogelijkheden[j]
+        if secret_code == gok:
+            break
 def random_secret_code():
 
     #kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart"]
@@ -158,4 +160,3 @@ def feedback(secret_code, gok, count_aantal_pogingen):
 
 
 keuze_m()
-
