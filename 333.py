@@ -1,26 +1,26 @@
 import random
 
 
-def keuze_m():
+def keuzemenu():
     print("---Mastermind game---")
     while True:
         keuze = (input("Kies een van de opties:\n""1.Raad de code\n""2.Maak de code\n"
-                       "3.Maak de code met makkelijk algoritmen\n""'\r"))
+                       "3.Maak de code (met makkelijk algoritmen)\n""'\r"))
         if '1' in keuze:
-            start()
+            start_randen_optie()
             break
         elif '2' in keuze:
             print('\r')
-            verwijder_gokken(computer_guess_m(), alle_mogelijk_gok())
+            verwijder_gokken(computer_guess(), alle_mogelijk_gok())
             break
         elif '3' in keuze:
-            algoritme_makkelijk(computer_guess_m(), alle_mogelijk_gok())
+            algoritme_makkelijk(computer_guess(), alle_mogelijk_gok())
             break
         else:
             print("Voer een geldige keuze in !\r")
 
 
-def input_vragen():  # for player guess
+def gok_vragen():  # for player guess
     kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
     gok = []
     while len(gok) < 4:
@@ -35,12 +35,12 @@ def input_vragen():  # for player guess
     return gok
 
 
-def start():
+def start_randen_optie():
     print(" \nJe gaat de code raden, dus...\nKies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. ")
-    gok = input_vragen()
+    gok = gok_vragen()
     secret_code = random_secret_code()
     klopt_positie, klopt_kleuren = vergelijking(gok, secret_code)
-    feedback(klopt_positie, klopt_kleuren)
+    feedback_printen(klopt_positie, klopt_kleuren)
 
 
 def random_secret_code():
@@ -76,7 +76,7 @@ def vergelijking(gok, secret_code):  # Bron: Adam (de twee lijsten methode)
             return klopt_positie, klopt_kleuren
 
 
-def feedback(klopt_positie, klopt_kleuren):
+def feedback_printen(klopt_positie, klopt_kleuren):
     count_aantal_pogingen = 1
     while klopt_positie != 10:
         if count_aantal_pogingen == 10:
@@ -87,12 +87,14 @@ def feedback(klopt_positie, klopt_kleuren):
             print("Je hebt het binnen {} pogingen in gedaan.".format(count_aantal_pogingen))
         else:
             print("\rHet aantal zwart pin(s) is {} \nHet aantal wit pin(s) is {}\r".format(klopt_positie, klopt_kleuren))
-            input_vragen()
+            gok_vragen()
         count_aantal_pogingen += 1
         print(count_aantal_pogingen)
 
 
-def player_secretcode_pc():  # voor computer guess
+def computer_guess():  # voor computer guess
+    print("Maak de secret code,\n" 
+          "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. \r")
     kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
     secret_code = []
     while len(secret_code) < 4:
@@ -108,13 +110,6 @@ def player_secretcode_pc():  # voor computer guess
     return secret_code
 
 
-def computer_guess_m():
-    secret_code = player_secretcode_pc()
-    print("Maak de secret code,\n" 
-          "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. \r")
-    return secret_code
-
-
 def alle_mogelijk_gok():
     kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
     alle_mogelijkheden = []
@@ -127,7 +122,7 @@ def alle_mogelijk_gok():
     return alle_mogelijkheden
 
 
-def verwijder_gokken(secret_code, alle_mogelijkheden):     # Bron for the while loop : Iwan
+def verwijder_gokken(secret_code, alle_mogelijkheden):     # Bron for using the while loop : Iwan
     eerstekeer = 0
     while True:
         if eerstekeer == 0:
@@ -162,4 +157,5 @@ def algoritme_makkelijk(secret_code, alle_mogelijkheden):
             teller += 1
 
 
-keuze_m()
+keuzemenu()
+
