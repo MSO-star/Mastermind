@@ -5,19 +5,18 @@ def keuze_m():
     print("---Mastermind game---")
     while True:
         keuze = (input("Kies een van de opties:\n"
-                          "1.spelen tegen de computer:\n"
-                          "2.computer tegen jou: \n"
-                          "3.computer tegen jou met eigen algoritme:\n"
-                          "Ik kies:\r"))
+                          "1.Raad de code\n"
+                          "2.Maak de code \n"
+                          "3.Maak de code met makkelijk algoritmen\n""'\r"))
         if '1' in keuze:
             start()
             break
         elif '2' in keuze:
             print('\r')
-            verwijdere_gokken(computer_guess_m(), alle_mogelijk_gok())
+            verwijder_gokken(computer_guess_m(), alle_mogelijk_gok())
             break
         elif '3' in keuze:
-            eesy(computer_guess_m(), alle_mogelijk_gok())
+            algoritme_makkelijk(computer_guess_m(), alle_mogelijk_gok())
             break
         else:
             print("Voer een geldige keuze in !\r")
@@ -55,7 +54,7 @@ def player_secretcode_pc():  # voor computer guess
 
 
 def start():
-    print("Kies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. ")
+    print(" \nJe gaat de code raden, dus...\nKies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. ")
     gok = input_vragen()
     secret_code = random_secret_code()
     count_aantal_pogingen = 0
@@ -63,10 +62,10 @@ def start():
     feedback(secret_code, gok, count_aantal_pogingen, klopt_positie, klopt_kleuren)
 
 
-def computer_guess_m():#secret_code
+def computer_guess_m():
+    secret_code = player_secretcode_pc()
     print("Maak de secret code,\n" 
           "Kies uit de volgende kleuren: wit, rood, groen, geel, blauw en zwart. \r")
-    secret_code = player_secretcode_pc()
     return secret_code
 
 
@@ -82,7 +81,7 @@ def alle_mogelijk_gok():
     return alle_mogelijkheden
 
 
-def verwijdere_gokken(secret_code, alle_mogelijkheden):                                         # simple stratgy  # Bron for the while loop : Iwan
+def verwijder_gokken(secret_code, alle_mogelijkheden):     # Bron for the while loop : Iwan
     eerstekeer = 0
     while True:
         if eerstekeer == 0:
@@ -104,21 +103,16 @@ def verwijdere_gokken(secret_code, alle_mogelijkheden):                         
         eerstekeer += 1
 
 
-def eesy(secret_code, alle_mogelijkheden):
+def algoritme_makkelijk(secret_code, alle_mogelijkheden):
     teller= 0
     while True:
         gok = alle_mogelijkheden[0]
-        print(gok)
         if gok == secret_code:
+            print(gok)
             print("De algoritme heeft je secret code binnen {} keer geraden!".format(teller))
             break
         else:
-            lijst= []
-            feedback= vergelijking(gok, secret_code)
-            for items in alle_mogelijkheden:
-                if vergelijking(gok, items) == feedback:
-                    lijst.append(items)
-            alle_mogelijkheden = lijst
+            alle_mogelijkheden.remove(gok)
             teller+=1
 
 def eigen_algoritme():
@@ -162,10 +156,8 @@ def eigen_algoritme():
 
 
 def random_secret_code():
-    #kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart"]
-    #secret_code_random= random.sample(kleuren, 4 )
-    #print(secret_code_random)
-    secret_code_random = ["blauw", "zwart", "groen","rood"]
+    kleuren= ["wit", "rood","groen", "geel", "blauw", "zwart"]
+    secret_code_random= random.sample(kleuren, 4 )
     return secret_code_random
 
 
