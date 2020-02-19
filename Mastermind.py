@@ -85,7 +85,8 @@ def feedback_printen(klopt_positie, klopt_kleuren):
             print('\33[4m' + "Goed gedaan! Je bent een Mastermind!" + '\33[4m')
             print("Je hebt het binnen {} pogingen in gedaan.".format(count_aantal_pogingen))
         else:
-            print("\r\033[33mHet aantal zwart pin(s) is {}\nHet aantal wit pin(s) is {}\r\033[33m".format(klopt_positie, klopt_kleuren))
+            print("\r\033[33mHet aantal zwart pin(s) is {}"
+                  "\nHet aantal wit pin(s) is {}\r\033[33m".format(klopt_positie, klopt_kleuren))
             gok_vragen()
         count_aantal_pogingen += 1
 
