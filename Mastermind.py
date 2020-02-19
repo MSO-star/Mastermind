@@ -159,3 +159,6 @@ def algoritme_makkelijk(secret_code, alle_mogelijkheden):
 
 keuzemenu()
 
+
+print()
+
