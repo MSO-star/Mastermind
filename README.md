@@ -14,6 +14,7 @@ http://terencegaoanalytics.blogspot.com/2017/10/first-python-project-mastermind-
 
 https://www.geeksforgeeks.org/print-colors-python-terminal/
 https://www.dcode.fr/mastermind-solver
+
 Het boek: introduction computing using python 
 
 3. Soms had ik hulp van mijn klasgenoten gevraagd, en van meerdere docenten wanneer ik vast met de code liep. 
