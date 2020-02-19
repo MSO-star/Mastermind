@@ -17,7 +17,7 @@ def keuzemenu():
             algoritme_makkelijk(computer_guess(), alle_mogelijk_gok())
             break
         else:
-            print('\033[91m'+ "Voer een geldige keuze in !\r" + '\033[0m')
+            print('\033[91m' + "Voer een geldige keuze in !\r" + '\033[0m')
 
 
 def gok_vragen():  # for player guess
@@ -85,7 +85,7 @@ def feedback_printen(klopt_positie, klopt_kleuren):
             print('\33[4m' + "Goed gedaan! Je bent een Mastermind!" + '\33[4m')
             print("Je hebt het binnen {} pogingen in gedaan.".format(count_aantal_pogingen))
         else:
-            print("\rHet aantal zwart pin(s) is {} \nHet aantal wit pin(s) is {}\r".format(klopt_positie, klopt_kleuren))
+            print("\rHet aantal zwart pin(s) is {}\nHet aantal wit pin(s) is {}\r".format(klopt_positie, klopt_kleuren))
             gok_vragen()
         count_aantal_pogingen += 1
         print(count_aantal_pogingen)
@@ -122,11 +122,11 @@ def alle_mogelijk_gok():
     return alle_mogelijkheden
 
 
-def verwijder_gokken(secret_code, alle_mogelijkheden):     # Bron for using the while loop : Iwan
+def verwijder_gokken(secret_code, alle_mogelijkheden):   # combinatie van de simple strategy en de expected size,
     eerstekeer = 0
-    while True:
+    while True:  # Bron for using the while loop : Iwan
         if eerstekeer == 0:
-            gok1 = ['wit', 'wit', 'rood', 'groen']
+            gok1 = ['wit', 'wit', 'rood', 'groen']  # vaste gok, het beste gok volgens de Expected Size Strategy
             eerstekeer = 1
         else:
             gok1 = alle_mogelijkheden[0]
@@ -144,7 +144,7 @@ def verwijder_gokken(secret_code, alle_mogelijkheden):     # Bron for using the 
         eerstekeer += 1
 
 
-def algoritme_makkelijk(secret_code, alle_mogelijkheden):
+def algoritme_makkelijk(secret_code, alle_mogelijkheden):  # eigen algoritmen
     teller = 0
     while True:
         gok = alle_mogelijkheden[0]
