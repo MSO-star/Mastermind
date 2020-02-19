@@ -18,3 +18,6 @@ https://www.dcode.fr/mastermind-solver
 Het boek: introduction computing using python 
 
 3. Soms had ik hulp van mijn klasgenoten gevraagd, en van meerdere docenten wanneer ik vast met de code liep. 
+
+4. Voor het uitwerken van simple strategy
+https://canvas.hu.nl/courses/7474/files/696021/download?wrap=1
