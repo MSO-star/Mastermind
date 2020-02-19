@@ -2,7 +2,7 @@ import random
 
 
 def keuzemenu():
-    print("---Mastermind game---")
+    print("'\033[37m---Mastermind game---")
     while True:
         keuze = (input("Kies een van de opties:\n""1.Raad de code\n""2.Maak de code\n"
                        "3.Maak de code (met makkelijk algoritmen)\n""'\r"))
@@ -17,7 +17,7 @@ def keuzemenu():
             algoritme_makkelijk(computer_guess(), alle_mogelijk_gok())
             break
         else:
-            print('\033[91m' + "Voer een geldige keuze in !\r" + '\033[0m')
+            print('\033[31m' + "Voer een geldige keuze in !\r" + '\033[31m')
 
 
 def gok_vragen():  # for player guess
@@ -85,16 +85,15 @@ def feedback_printen(klopt_positie, klopt_kleuren):
             print('\33[4m' + "Goed gedaan! Je bent een Mastermind!" + '\33[4m')
             print("Je hebt het binnen {} pogingen in gedaan.".format(count_aantal_pogingen))
         else:
-            print("\rHet aantal zwart pin(s) is {}\nHet aantal wit pin(s) is {}\r".format(klopt_positie, klopt_kleuren))
+            print("\r\033[33mHet aantal zwart pin(s) is {}\nHet aantal wit pin(s) is {}\r\033[33m".format(klopt_positie, klopt_kleuren))
             gok_vragen()
         count_aantal_pogingen += 1
-        print(count_aantal_pogingen)
 
 
 def computer_guess():  # voor computer guess
 
     print("Maak de secret code,\n" 
-          "Kies uit de volgende kleuren:  wit, rood, groen, geel, blauw en zwart.")
+          "Kies uit de volgende kleuren: \33[34m'wit, rood, groen, geel, blauw en zwart.\n'\33[33m")
     kleuren = ["wit", "rood", "groen", "geel", "blauw", "zwart"]
     secret_code = []
     while len(secret_code) < 4:
@@ -123,17 +122,17 @@ def alle_mogelijk_gok():
 
 
 def verwijder_gokken(secret_code, alle_mogelijkheden):   # combinatie van de simple strategy en de expected size,
-    eerstekeer = 0
+    teller = 0
     while True:  # Bron for using the while loop : Iwan
-        if eerstekeer == 0:
+        if teller == 0:
             gok1 = ['wit', 'wit', 'rood', 'groen']  # vaste gok, het beste gok volgens de Expected Size Strategy
-            eerstekeer = 1
+            teller = 1
         else:
             gok1 = alle_mogelijkheden[0]
         lijst_return = []
         print(gok1)
         if secret_code == gok1:
-            print("De computer heeft je secret code binnen {} keer geraden !".format(eerstekeer))
+            print("De computer heeft je secret code binnen {} keer geraden !".format(teller))
             break
         feedback1 = vergelijking(gok1, secret_code)
         for item in alle_mogelijkheden:
@@ -141,7 +140,7 @@ def verwijder_gokken(secret_code, alle_mogelijkheden):   # combinatie van de sim
             if a == feedback1:
                 lijst_return.append(item)
         alle_mogelijkheden = lijst_return
-        eerstekeer += 1
+        teller += 1
 
 
 def algoritme_makkelijk(secret_code, alle_mogelijkheden):  # eigen algoritmen
